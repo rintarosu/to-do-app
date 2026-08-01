@@ -33,3 +33,6 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Local project notes for Claude Code (not for public sharing)
+/CLAUDE.md
+

@@ -10,13 +10,15 @@ services:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
     volumes:
-      - .:/app
+      - .:/rails
     ports:
       - "3000:3000"
     depends_on:
       - db
     environment:
+      RAILS_ENV: development
       DATABASE_URL: postgres://postgres:password@db:5432/app_development
+      BUNDLE_DEPLOYMENT: "0"
 
 volumes:
   db_data:

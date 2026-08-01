@@ -1,0 +1,11 @@
+/ 1. app/views/tasks/_form.html_erbという部分テンプレートを作り、form_with model: task do |f|を使ってタイトル入力欄と送信ボタンを作る
+  （newとeditの両方からrender "form", task: @taskのように呼び出せる）
+  2. app/views/tasks/new.html.erbとapp/views/tasks/edit.html.erbは、
+   それぞれ見出しとrender "form", task: @taskだけのシンプルな内容でOK
+  3. app/views/tasks/index.html.erbでは、@tasks.each do |task|で1件ずつループし、
+  各タスクのtitleを表示、completedのON/OFFに応じて見た目を変える（task.completed?が使える）、
+  編集リンク（edit_task_path(task)）、削除ボタン（button_to "削除", task, method: :delete）を置く
+
+= form_with model: task do |f|
+  = f.text_field :title
+  = f.submit
