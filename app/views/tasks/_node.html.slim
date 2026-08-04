@@ -1,0 +1,6 @@
+li
+  span = task.title
+  - if task.children.any?
+    ul
+      - task.children.each do |child|
+        = render "node", task: child

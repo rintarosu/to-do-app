@@ -5,3 +5,5 @@
   = button_to "削除", task, method: :delete
   = button_to "完了",task, method: :patch, params: { task: { completed: !task.completed } }
   = link_to "分解", new_task_decomposition_path(task)
+  = link_to "木構造", tree_task_path(task)
+  span = task.tags.pluck(:name).join(", ")

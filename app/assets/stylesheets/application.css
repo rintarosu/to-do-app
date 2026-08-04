@@ -8,3 +8,98 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.tree, .tree ul, .tree li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.tree {
+  display: flex;
+  justify-content: center;
+}
+
+.tree ul {
+  display: flex;
+  justify-content: center;
+  padding-top: 2em;
+}
+
+.tree li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em 0.5em 0 0.5em;
+  position: relative;
+}
+
+.tree > li {
+  padding-top: 0;
+}
+
+/* 子タスクの左半分・右半分から中央に向かう「かぎ線」 */
+.tree li::before,
+.tree li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: 2em;
+  border-top: 1px solid #999;
+}
+
+.tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 1px solid #999;
+}
+
+/* 兄弟がいない（1人だけの）子には左右の接続線は不要 */
+.tree li:only-child::before,
+.tree li:only-child::after {
+  display: none;
+}
+
+/* 一番左の子は左半分の線、一番右の子は右半分の線を消す */
+.tree li:first-child::before,
+.tree li:last-child::after {
+  border: 0 none;
+}
+
+.tree li:last-child::before {
+  border-right: 1px solid #999;
+  border-radius: 0 6px 0 0;
+}
+
+.tree li:first-child::after {
+  border-radius: 6px 0 0 0;
+}
+
+/* 親から子グループへ下に伸びる縦線 */
+.tree ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 2em;
+  border-left: 1px solid #999;
+}
+
+/* 根（一番上）には親への線が無いので、接続線をすべて消す */
+.tree > li::before,
+.tree > li::after {
+  display: none;
+}
+
+.tree span {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  white-space: nowrap;
+}

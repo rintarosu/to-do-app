@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   resources :tasks do
     resource :decomposition, only: %i[new create]
+    member do
+      get :tree
+    end
   end
 
   # Defines the root path route ("/")

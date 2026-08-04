@@ -20,5 +20,15 @@ services:
       DATABASE_URL: postgres://postgres:password@db:5432/app_development
       BUNDLE_DEPLOYMENT: "0"
 
+  css:
+    build: .
+    command: bash -c "bundle exec rails tailwindcss:watch[always]"
+    volumes:
+      - .:/rails
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://postgres:password@db:5432/app_development
+      BUNDLE_DEPLOYMENT: "0"
+
 volumes:
   db_data:

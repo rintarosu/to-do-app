@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[edit update destroy]
+  before_action :set_task, only: %i[edit update destroy tree]
 
   def index
     @tasks = Current.user.tasks
@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   def create
     @task = Current.user.tasks.new(task_params)
     if @task.save
+      sync_tags(@task)
       redirect_to tasks_path
     else
       render :new
@@ -21,8 +22,12 @@ class TasksController < ApplicationController
   def edit
   end
 
+  def tree
+  end
+
   def update
     if @task.update(task_params)
+      sync_tags(@task)
       redirect_to tasks_path
     else
       render :edit
@@ -46,5 +51,11 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :completed)
+  end
+
+   def sync_tags(task)
+    names = params[:tag_names].split(",").map(&:strip).reject(&:blank?)
+    tags = names.map { |name| Current.user.tags.find_or_create_by(name: name) }
+    task.tags = tags
   end
 end

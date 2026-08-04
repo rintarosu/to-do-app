@@ -12,6 +12,9 @@ class Task < ApplicationRecord
   has_many :ancestors, through: :ancestor_links, source: :ancestor
   has_many :descendants, through: :descendant_links, source: :descendant
 
+  has_many :task_tags, dependent: :destroy
+  has_many :tags, through: :task_tags
+
   after_create :create_closure_records
 
   private
